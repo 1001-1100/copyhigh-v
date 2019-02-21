@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Copyhigh-V</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static "styles/index.css" %}">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .dataBox{
+            margin-bottom: 10px;
+            border: 1px solid black;
+            padding: 20px;
+      }
+      th, td {
+        padding: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="">Copyhigh-V</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+</nav>
+
+<main role="main" class="container">
+
+  <div class="starter-template">
+      <div class="dataBox">
+        <form action="result" method="POST">
+            <table>
+                <tr>
+                    <th>ITEM</th> 
+                    <th>EMPLOYEE</th>
+                    <th>BEG INV</th>
+                    <th>END INV</th>
+                    <th>ACTUAL INV</th>
+                </tr>
+                <tr>
+                    <th><select>
+                            <option>Laminate (Php 5)</option>
+                            <option>Cover (Php 10)</option>
+                        </select>
+                    </th>
+                    <th><input disabled></th>
+                    <th><input></th>
+                    <th><input></th>
+                    <th><input></th>
+                </tr>
+                <tr>
+                    <th>DELIVERY</th>
+                    <th>SALES</th>
+                    <th>SALES AMOUNT</th>
+                    <th>SHORTAGE</th>
+                    <th>SHORTAGE AMOUNT</th>
+                </tr>
+                <tr>
+                    <th><input></th>
+                    <th><input></th>
+                    <th><input disabled></th>
+                    <th><input disabled></th>
+                    <th><input disabled></th>
+                </tr>
+            </table>
+        </form>
+      </div>
+      <div class="dataBox">
+        <form action="result" method="POST">
+            <table>
+                <tr>
+                    <th>ITEM</th> 
+                    <th>EMPLOYEE</th>
+                    <th>BEG INV</th>
+                    <th>END INV</th>
+                    <th>ACTUAL INV</th>
+                </tr>
+                <tr>
+                    <th><select>
+                            <option>Laminate (Php 5)</option>
+                            <option>Cover (Php 10)</option>
+                        </select>
+                    </th>
+                    <th><input disabled></th>
+                    <th><input></th>
+                    <th><input></th>
+                    <th><input></th>
+                </tr>
+                <tr>
+                    <th>DELIVERY</th>
+                    <th>SALES</th>
+                    <th>SALES AMOUNT</th>
+                    <th>SHORTAGE</th>
+                    <th>SHORTAGE AMOUNT</th>
+                </tr>
+                <tr>
+                    <th><input></th>
+                    <th><input></th>
+                    <th><input disabled></th>
+                    <th><input disabled></th>
+                    <th><input disabled></th>
+                </tr>
+            </table>
+        </form>
+      </div>
+      <button>Submit Entries</button>
+  </div>
+
+</main><!-- /.container -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+  crossorigin="anonymous"></script>
+</html>

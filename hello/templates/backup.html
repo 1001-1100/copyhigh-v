@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <style>
+            div{
+                margin:10px;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="result" method="GET">
+            <div>
+                <b>Courses: </b><br><br>
+                <input name="courses" placeholder="SPEECOM,HUMAART"> <input type="submit">
+            </div>
+            <div>
+                <b>Preferences:</b>
+                <div>
+                    Leave the category empty if you have no preference.
+                </div>
+                <div>
+                        Separate multiple choices with commas.
+                </div>
+                <div>
+                    <input name="checkFull" type="checkbox">Filter out classes which are full (Enrolled > Enrl Cap)<br>
+                    <input name="checkRush" type="checkbox">Avoid 15 minute rushes (10:45 Gokongwei class and 11:00 Andrew class)<br>
+                    <input name="checkNoBreaks" type="checkbox">No breaks in-between<br>
+                    <input name="checkBreaks" type="checkbox">Always have breaks in-between<br>
+                </div>
+                <div>
+                    Desired Class Numbers: <input name="classNbr" placeholder="1783,1782">
+                </div>
+                <div>
+                    Desired Professors (any name): <input name="profs" placeholder="FRITZ,GENARO,RONDINA">
+                </div>
+                <div>
+                    Professors to avoid (any name): <input name="notProfs" placeholder="REYES,JIMENEZ">
+                </div>
+                <div>
+                    Sections to avoid: <input name="notSections" placeholder="X,SS">
+                </div>
+                <div>
+                    Rooms to avoid: <input name="notRooms" placeholder="GK,AG">
+                </div>
+                <div>
+                    No classes before this time: <input name="notBefore" placeholder="915">
+                </div>
+                <div>
+                    No classes after this time: <input name="notAfter" placeholder="1700">
+                </div>
+                <div>
+                    No classes during these times: <input name="notDuring" placeholder="1200-1300,915-1045">
+                </div>
+                <div>
+                    No classes on these days: <input name="notDays" placeholder="T,H">
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
