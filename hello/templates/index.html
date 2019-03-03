@@ -67,10 +67,10 @@
                             <option>Cover (Php 10)</option>
                         </select>
                     </th>
-                    <th><input disabled></th>
-                    <th><input></th>
-                    <th><input></th>
-                    <th><input></th>
+                    <th><input disabled size="19">
+                    <th><input size="19"></th>
+                    <th><input size="19"></th>
+                    <th><input size="19"></th>
                 </tr>
                 <tr>
                     <th>DELIVERY</th>
@@ -80,60 +80,33 @@
                     <th>SHORTAGE AMOUNT</th>
                 </tr>
                 <tr>
-                    <th><input></th>
-                    <th><input></th>
-                    <th><input disabled></th>
-                    <th><input disabled></th>
-                    <th><input disabled></th>
+                    <th><input size="19"></th>
+                    <th><input size="19"></th>
+                    <th><input size="19" disabled></th>
+                    <th><input size="19" disabled></th>
+                    <th><input size="19" disabled></th>
                 </tr>
             </table>
         </form>
       </div>
-      <div class="dataBox">
-        <form action="result" method="POST">
-            <table>
-                <tr>
-                    <th>ITEM</th> 
-                    <th>EMPLOYEE</th>
-                    <th>BEG INV</th>
-                    <th>END INV</th>
-                    <th>ACTUAL INV</th>
-                </tr>
-                <tr>
-                    <th><select>
-                            <option>Laminate (Php 5)</option>
-                            <option>Cover (Php 10)</option>
-                        </select>
-                    </th>
-                    <th><input disabled></th>
-                    <th><input></th>
-                    <th><input></th>
-                    <th><input></th>
-                </tr>
-                <tr>
-                    <th>DELIVERY</th>
-                    <th>SALES</th>
-                    <th>SALES AMOUNT</th>
-                    <th>SHORTAGE</th>
-                    <th>SHORTAGE AMOUNT</th>
-                </tr>
-                <tr>
-                    <th><input></th>
-                    <th><input></th>
-                    <th><input disabled></th>
-                    <th><input disabled></th>
-                    <th><input disabled></th>
-                </tr>
-            </table>
-        </form>
-      </div>
-      <button>Submit Entries</button>
   </div>
-
+      <span>
+	      <button id="addEntry">Add Entry</button>
+	      <button>Submit Entries</button>
+      </span>
 </main><!-- /.container -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
   crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
   crossorigin="anonymous"></script>
+<script>
+	$("#addEntry").click(function(){
+		alert('Hello');
+		var dataBox = document.createElement("div");
+		dataBox.className = "dataBox";
+		var table = document.createElement("table");
+		$("starter-template").append(dataBox);
+	})
+</script>
 </html>

@@ -3,14 +3,9 @@ from django.http import HttpResponse
 
 from .models import Greeting
 
-import requests
-from bs4 import BeautifulSoup
-import argparse
-import subprocess
 import datetime
 import django
 import time
-from z3 import *
 
 # Create your views here.
 def index(request):
