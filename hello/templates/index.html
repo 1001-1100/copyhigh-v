@@ -56,7 +56,8 @@
       </div>
       <div id="entries">
         <div class="dataBox">
-          <form action="addInvEntry" method="POST">
+          <form action="addInvEntry" method="post">
+	      <input type="hidden" value="">
               <table>
                   <tr>
                       <th>ITEM</th> 
@@ -71,7 +72,7 @@
                               <option>Cover (Php 10)</option>
                           </select>
                       </th>
-                      <th><input name="employee" size="19" value="{{ employee }}">
+                      <th><input readonly name="employee" size="19" value="{{ employee }}">
                       <th><input name="beginv" size="19"></th>
                       <th><input name="endinv" size="19"></th>
                       <th><input name="actualinv" size="19"></th>
@@ -91,13 +92,12 @@
                       <th><input readonly value="0" name="shortageamount" size="19"></th>
                   </tr>
               </table>
-              <input type="submit">
           </form>
         </div>
       </div>
      <div style="margin-top: 20px">
 	      <button id="addEntry">Add Entry</button>
-	      <button>Submit Entries</button>
+	      <button id="submitEntries">Submit Entries</button>
       </div>
   </div>
 </main><!-- /.container -->
@@ -109,7 +109,13 @@
 <script>
 	$("#addEntry").click(function(){
 		var dataBox = document.createElement("div")
+		var form = document.createElement("form")
+		var entryID = document.createElement("input")
+		entryID.setAttribute("type", "hidden")
 		dataBox.className = "dataBox"
+		form.setAttribute("action", "addInvEntry")
+		form.setAttribute("method", "post")
+		form.append(entryID)
 		var table = document.createElement("table")
     var disabledinput = document.createElement("input")
     disabledinput.setAttribute("size", "19")
@@ -141,7 +147,7 @@
     row.append(col)
     col = document.createElement("th")
     input = document.createElement("input")
-    input.setAttribute("disabled", "")
+    input.setAttribute("readonly", "")
     input.setAttribute("size", "19")
     input.setAttribute("value", "{{ employee }}")
     col.append(input)
@@ -195,24 +201,25 @@
     col = document.createElement("th")
     input = document.createElement("input")
     input.setAttribute("size", "19")
-    input.setAttribute("disabled", "")
+    input.setAttribute("readonly", "")
     col.append(input)
     row.append(col)
     col = document.createElement("th")
     input = document.createElement("input")
     input.setAttribute("size", "19")
-    input.setAttribute("disabled", "")
+    input.setAttribute("readonly", "")
     col.append(input)
     row.append(col)
     col = document.createElement("th")
     input = document.createElement("input")
     input.setAttribute("size", "19")
-    input.setAttribute("disabled", "")
+    input.setAttribute("readonly", "")
     col.append(input)
     row.append(col)
     table.append(row)
 
-		dataBox.append(table);
+		form.append(table)
+		dataBox.append(form)
 		$("#entries").append(dataBox)
 	})
 </script>
