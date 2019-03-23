@@ -41,10 +41,22 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="">Copyhigh-V</a>
+  <a class="navbar-brand" href="" tabindex="-1">Copyhigh-V</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="add">Add</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="view">Edit</a>
+      </li>
+    </ul>
+    <a class="btn btn-secondary my-2 my-sm-0" href="/login" tabindex="-1">Logout</a>
+ </div>
 
 </nav>
 
@@ -52,44 +64,62 @@
 
   <div class="starter-template">
       <div style="margin-bottom: 20px">
-        Current Date: March 04, 2019
+        Current Date: {{ currentDate }}<br>
+        Employee number: {{ employee }}
       </div>
       <div id="entries">
         <div class="dataBox">
           <form action="addInvEntry" method="post">
-	      <input type="hidden" value="">
+	      <input type="hidden" name="employee" value="123">
               <table>
                   <tr>
                       <th>ITEM</th> 
-                      <th>EMPLOYEE</th>
-                      <th>BEG INV</th>
-                      <th>END INV</th>
-                      <th>ACTUAL INV</th>
                   </tr>
                   <tr>
-                      <th><select name="item">
-                              <option>Laminate (Php 5)</option>
-                              <option>Cover (Php 10)</option>
+                      <th><select id="item" tabindex="1" name="item">
+                              {% for i in invItems %}
+                                <option>{{i}}</option>
+                              {% endfor %}
                           </select>
                       </th>
-                      <th><input readonly name="employee" size="19" value="{{ employee }}">
-                      <th><input name="beginv" size="19"></th>
-                      <th><input name="endinv" size="19"></th>
-                      <th><input name="actualinv" size="19"></th>
                   </tr>
                   <tr>
                       <th>DELIVERY</th>
+                      <th>BEG INV</th>
+                      <th>END INV</th>
+                  </tr>
+                  <tr>
+                      <th><input id="delivery" name="delivery" size="17"></th>
+                      <th><input id="beginv" tabindex="-1" readonly name="beginv" value="{{ invBegin.0 }}" size="17"></th>
+                      <th><input id="endinv" tabindex="-1" readonly name="endinv" value="{{ invBegin.0 }}" size="17"></th>
+                  </tr>
+                  <tr>
                       <th>SALES</th>
+                      <th>PRICE</th>
                       <th>SALES AMOUNT</th>
+                  </tr>
+                  <tr>
+                      <th><input id="sales" name="sales" size="17"></th>
+                      <th>Php <input id="price" tabindex="-1" value="0" readonly size="13"></th>
+                      <th>Php <input id="salesamount" tabindex="-1" readonly value="0" name="salesamount" size="13"></th>
+                  </tr>
+                  <tr>
+                      <th>
+                        <span>ACTUAL INV</span>
+                        <input id="actualinvcheck" type="checkbox">
+                      </th>
                       <th>SHORTAGE</th>
                       <th>SHORTAGE AMOUNT</th>
                   </tr>
                   <tr>
-                      <th><input name="delivery" size="19"></th>
-                      <th><input name="sales" size="19"></th>
-                      <th><input readonly value="0" name="salesamount" size="19"></th>
-                      <th><input readonly value="0" name="shortage" size="19"></th>
-                      <th><input readonly value="0" name="shortageamount" size="19"></th>
+                      <th><input id="actualinv" name="actualinv" disabled size="17"></th>
+                      <th><input id="shortage" tabindex="-1" disabled value="0" name="shortage" size="17"></th>
+                      <th>Php <input id="shortageamount" tabindex="-1" disabled value="0" name="shortageamount" size="13"></th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <input type="submit">
+                    </th>
                   </tr>
               </table>
           </form>
@@ -222,5 +252,41 @@
 		dataBox.append(form)
 		$("#entries").append(dataBox)
 	})
+  function change(){
+
+  }
+  $("#actualinvcheck").on("change", function(){
+    if($("#actualinvcheck").is(":checked")){
+      $("#actualinv").removeAttr("disabled")
+      $("#shortage").removeAttr("disabled")
+      $("#shortageamount").removeAttr("disabled")
+    }else{
+      $("#actualinv").prop("disabled",true)
+      $("#shortage").prop("disabled",true)
+      $("#shortageamount").prop("disabled",true)
+    }
+  });
+  $("#item, #beginv, #endinv, #actualinv, #delivery, #sales").on("change paste keyup", function() {
+    var curItem = $("#item").prop('selectedIndex')
+    var invPrices = []
+    {% for i in invPrices %}
+      invPrices.push({{i}})
+    {% endfor %}
+    var invBegin = []
+    {% for i in invBegin %}
+      invBegin.push({{i}})
+    {% endfor %}
+    $("#beginv").val(Number(invBegin[curItem]) + Number($("#delivery").val()))
+    $("#endinv").val($("#beginv").val() - $("#sales").val())
+    var salesamount = $("#sales").val() * invPrices[curItem] 
+    $("#salesamount").val(salesamount)
+    $("#price").val(invPrices[curItem])
+    if($("#actualinvcheck").is(":checked")){
+      var shortage = $("#endinv").val() - $("#actualinv").val() 
+      $("#shortage").val(shortage)
+      var shortageamount = Number($("#shortage").val()) * Number(invPrices[curItem])
+      $("#shortageamount").val(shortageamount)
+    }
+  });
 </script>
 </html>
