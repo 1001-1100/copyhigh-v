@@ -31,7 +31,7 @@ def addpage(request):
     return render(request, "index.html", data)
 
 def viewpage(request):
-    invEntryList = invEntry.objects.all()
+    invEntryList = invEntry.objects.all().order_by('-date')
     data = {}
     data['employee'] = 123456789 
     data['currentDate'] = datetime.datetime.now()

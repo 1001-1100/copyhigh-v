@@ -22,4 +22,8 @@ class invItem(models.Model):
     price = models.FloatField(default=0)
     inv = models.IntegerField(default=0)
 
+class user(models.Model):
+    userid = models.CharField(max_length=21)
+    password = models.CharField(max_length=21)
+
 
