@@ -18,7 +18,9 @@ urlpatterns = [
     path("", hello.views.index, name="index"),
     path("add", hello.views.addpage, name="addpage"),
     path("view", hello.views.viewpage, name="viewpage"),
-    path("login", hello.views.login, name="login"),
+    path("login", hello.views.getlogin, name="getlogin"),
+    path("logout", hello.views.logout, name="logout"),
+    path("postlogin", hello.views.postlogin, name="postlogin"),
 
     path("addInvEntry", hello.views.addInvEntry, name='addInvEntry'),
     path("db/", hello.views.db, name="db"),

@@ -13,31 +13,48 @@ import time
 
 # Create your views here.
 
-def login(request):
+def getlogin(request):
     return render(request, "login.html")
+
+def postlogin(request):
+    r = request.POST
+    request.session['employee'] = r.get('employee')
+    return redirect('/')
+
+def logout(request):
+    del request.session['employee']
+    return redirect('/login')
 
 def index(request):
     return redirect('/add')
 
 def addpage(request):
-    invItemList = invItem.objects.all()
-    data = {}
-    data['employee'] = 123456789 
-    data['currentDate'] = datetime.datetime.now()
-    data['invItems'] = [i.item for i in invItemList.iterator()]
-    data['invPrices'] = [i.price for i in invItemList.iterator()]
-    data['invBegin'] = [i.inv for i in invItemList.iterator()]
+    if(request.session.get('employee')):
+        invItemList = invItem.objects.all()
+        data = {}
+        data['employee'] = request.session.get('employee') 
+        data['currentDate'] = datetime.datetime.now()
+        data['invItems'] = [i.item for i in invItemList.iterator()]
+        data['invPrices'] = [i.price for i in invItemList.iterator()]
+        data['invBegin'] = [i.inv for i in invItemList.iterator()]
 
-    return render(request, "index.html", data)
+        return render(request, "index.html", data)
+    else:
+        return redirect('/login')
+        
+    
 
 def viewpage(request):
-    invEntryList = invEntry.objects.all().order_by('-date')
-    data = {}
-    data['employee'] = 123456789 
-    data['currentDate'] = datetime.datetime.now()
-    data['invEntry'] = [i for i in invEntryList.iterator()]
+    if(request.session.get('employee')):
+        invEntryList = invEntry.objects.all().order_by('-date')
+        data = {}
+        data['employee'] = request.session.get('employee') 
+        data['currentDate'] = datetime.datetime.now()
+        data['invEntry'] = [i for i in invEntryList.iterator()]
+        return render(request, "view.html", data)
+    else:
+        return redirect('/login')
 
-    return render(request, "view.html", data)
 
 def db(request):
 
