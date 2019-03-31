@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Greeting
 from .models import invEntry
 from .models import invItem
+from .models import user
 
 import datetime
 import django
@@ -42,8 +43,6 @@ def addpage(request):
     else:
         return redirect('/login')
         
-    
-
 def viewpage(request):
     if(request.session.get('employee')):
         invEntryList = invEntry.objects.all().order_by('-date')

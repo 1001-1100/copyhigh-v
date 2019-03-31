@@ -55,10 +55,10 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a tabindex="-1" class="nav-link" href="add">Add</a>
+        <a tabindex="-1" class="nav-link" href="add">Add Audit</a>
       </li>
       <li class="nav-item">
-        <a tabindex="-1" class="nav-link" href="view">Edit</a>
+        <a tabindex="-1" class="nav-link" href="view">Edit Audit</a>
       </li>
     </ul>
     <a class="btn btn-secondary my-2 my-sm-0" href="/logout" tabindex="-1">Logout</a>
@@ -75,8 +75,8 @@
       </div>
       <div id="entries">
         <div class="dataBox">
-          <form action="addInvEntry" method="post">
-	      <input type="hidden" name="employee" value="123">
+          <form id="form" action="addInvEntry" method="post">
+	      <input type="hidden" name="employee" value="{{ employee }}">
               <table>
                   <tr>
                       <th>ITEM</th> 
@@ -124,7 +124,6 @@
                   </tr>
                   <tr>
                     <th>
-                      <input type="submit">
                     </th>
                   </tr>
               </table>
@@ -132,8 +131,7 @@
         </div>
       </div>
      <div style="margin-top: 20px">
-	      <button id="addEntry">Add Entry</button>
-	      <button id="submitEntries">Submit Entries</button>
+	      <button id="submitEntries">Submit entry</button>
       </div>
   </div>
 </main><!-- /.container -->
@@ -146,12 +144,14 @@
 	$("#addEntry").click(function(){
 		var dataBox = document.createElement("div")
 		var form = document.createElement("form")
-		var entryID = document.createElement("input")
-		entryID.setAttribute("type", "hidden")
+		var employeeID = document.createElement("input")
+		employeeID.setAttribute("type", "hidden")
+    employeeID.setAttribute("name", "employee")
+    employeeID.setAttribute("value", "{{ employee }}")
 		dataBox.className = "dataBox"
 		form.setAttribute("action", "addInvEntry")
 		form.setAttribute("method", "post")
-		form.append(entryID)
+		form.append(employeeID)
 		var table = document.createElement("table")
     var disabledinput = document.createElement("input")
     disabledinput.setAttribute("size", "19")
@@ -161,46 +161,12 @@
     var col = document.createElement("th")
     col.innerHTML = "ITEM"
     row.append(col)
-    col = document.createElement("th")
-    col.innerHTML = "EMPLOYEE"
-    row.append(col)
-    col = document.createElement("th")
-    col.innerHTML = "BEG INV"
-    row.append(col)
-    col = document.createElement("th")
-    col.innerHTML = "END INV"
-    row.append(col)
-    col = document.createElement("th")
-    col.innerHTML = "ACTUAL INV"
-    row.append(col)
     table.append(row)
 
     row = document.createElement("tr")
     col = document.createElement("th")
-    var input = document.createElement("input")
-    input.setAttribute("size", "19")
-    col.append(input)
-    row.append(col)
-    col = document.createElement("th")
-    input = document.createElement("input")
-    input.setAttribute("readonly", "")
-    input.setAttribute("size", "19")
-    input.setAttribute("value", "{{ employee }}")
-    col.append(input)
-    row.append(col)
-    col = document.createElement("th")
-    input = document.createElement("input")
-    input.setAttribute("size", "19")
-    col.append(input)
-    row.append(col)
-    col = document.createElement("th")
-    input = document.createElement("input")
-    input.setAttribute("size", "19")
-    col.append(input)
-    row.append(col)
-    col = document.createElement("th")
-    input = document.createElement("input")
-    input.setAttribute("size", "19")
+    var input = document.createElement("select")
+    input.setAttribute("id", "item")
     col.append(input)
     row.append(col)
     table.append(row)
@@ -257,10 +223,13 @@
 		form.append(table)
 		dataBox.append(form)
 		$("#entries").append(dataBox)
-	})
-  function change(){
 
-  }
+  });
+
+  $("#submitEntries").on("click", function(){
+    $("#form").submit()
+  });
+
   $("#actualinvcheck").on("change", function(){
     if($("#actualinvcheck").is(":checked")){
       $("#actualinv").removeAttr("disabled")
@@ -272,6 +241,7 @@
       $("#shortageamount").prop("disabled",true)
     }
   });
+
   function applyChange(){
     var curItem = $("#item").prop('selectedIndex')
     var invPrices = []
