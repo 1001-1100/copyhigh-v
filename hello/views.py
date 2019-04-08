@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 
 from .models import Greeting
 from .models import invEntry
@@ -45,11 +46,23 @@ def addpage(request):
         
 def viewpage(request):
     if(request.session.get('employee')):
-        invEntryList = invEntry.objects.all().order_by('-date')
+        currentDate = datetime.datetime.now()
+        yearString = str(currentDate.year)
+        if(currentDate.month < 10):
+            monthString = '0' + str(currentDate.month)
+        else:
+            monthString = str(currentDate.month)
+        if(currentDate.day < 10):
+            dayString = '0' + str(currentDate.day)
+        else:
+            dayString = str(currentDate.day)
+        dateString = yearString + '-' + monthString + '-' + dayString
+        invEntryList = invEntry.objects.all().filter(employee=request.session.get('employee'), date__contains=dateString).order_by('-date')
         data = {}
         data['employee'] = request.session.get('employee') 
         data['currentDate'] = datetime.datetime.now()
         data['invEntry'] = [i for i in invEntryList.iterator()]
+        
         return render(request, "view.html", data)
     else:
         return redirect('/login')

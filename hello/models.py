@@ -1,10 +1,12 @@
 from django.db import models
+import pytz
 
 # Create your models here.
 class Greeting(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
 
 class invEntry(models.Model):
+
     item = models.CharField(max_length=21)
     employee = models.IntegerField(default=0)
     delivery = models.IntegerField(default=0)
@@ -16,6 +18,13 @@ class invEntry(models.Model):
     shortage = models.IntegerField(default=None, blank=True, null=True)
     shortageamount = models.FloatField(default=None, blank=True, null=True)
     date = models.DateTimeField('Date Added', auto_now_add=True)
+
+    def checkDate(self, currentDate):
+        utc = pytz.UTC
+        print(self.date)
+        currentDate = currentDate.replace(tzinfo=utc) 
+        entryDate = self.date.replace(tzinfo=utc) 
+        return entryDate.year == currentDate.year and entryDate.month == currentDate.month and entryDate.day == currentDate.day 
 
 class invItem(models.Model):
     item = models.CharField(max_length=21)
