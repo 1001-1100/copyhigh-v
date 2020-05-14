@@ -16,6 +16,8 @@ import hello.views
 
 urlpatterns = [
     path("", hello.views.index, name="index"),
+    path("addItem", hello.views.addItempage, name="addItempage"),
+    path("editItem", hello.views.editItempage, name="editItempage"),
     path("add", hello.views.addpage, name="addpage"),
     path("view", hello.views.viewpage, name="viewpage"),
     path("login", hello.views.getlogin, name="getlogin"),
@@ -23,6 +25,7 @@ urlpatterns = [
     path("postlogin", hello.views.postlogin, name="postlogin"),
 
     path("addInvEntry", hello.views.addInvEntry, name='addInvEntry'),
+    path("addInvItem", hello.views.addInvItem, name='addInvItem'),
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
 ]

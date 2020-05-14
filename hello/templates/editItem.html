@@ -28,12 +28,21 @@
           font-size: 3.5rem;
         }
       }
+
       @media (min-width: 1200px) {
         .container{
         max-width: 1260px;
         }
       }
 
+      .dataBox{
+            margin-bottom: 10px;
+            border: 1px solid black;
+            padding: 20px;
+      }
+      th, td {
+        padding: 3px;
+      }
     </style>
   </head>
   <body>
@@ -45,45 +54,49 @@
 
   {% include "./navbar.html" %}
 
-
 </nav>
 
 <main role="main" class="container">
 
   <div class="starter-template">
       <div style="margin-bottom: 20px">
-        Current Date: {{currentDate}}<br>
-        Employee number: {{employee}}
+        Current Date: {{ currentDate }}<br>
+        Employee number: {{ employee }}
       </div>
-            <table border="1">
-                <tr>
-                    <th>ITEM</th>
-                    <th>DELIVERY</th>
-                    <th>BEG INV</th>
-                    <th>END INV</th>
-                    <th>SALES</th>
-                    <th>SALES AMOUNT</th>
-                    <th>ACTUAL INV</th>
-                    <th>SHORTAGE</th>
-                    <th>SHORTAGE AMOUNT</th>
-                    <th>DATE</th>
-                </tr>
-                {% for i in invEntry %}
-                <tr>
-                    <th>{% if i.item %} {{ i.item }} {% endif %}</th>
-                    <th>{% if i.delivery %} {{ i.delivery }} {% endif %}</th>
-                    <th>{% if i.beginv %} {{ i.beginv }} {% endif %}</th>
-                    <th>{% if i.endinv %} {{ i.endinv }} {% endif %}</th>
-                    <th>{% if i.sales %} {{ i.sales}} {% endif %}</th>
-                    <th>{% if i.salesamount %} {{ i.salesamount }} {% endif %}</th>
-                    <th>{% if i.actualinv %} {{ i.actualinv }} {% endif %}</th>
-                    <th>{% if i.shortage %} {{ i.shortage }} {% endif %}</th>
-                    <th>{% if i.shortageamount %} {{ i.shortageamount }} {% endif %}</th>
-                    <th>{% if i.date %} {{ i.date }} {% endif %}</th>
-                    <th><button>Edit</button><button>Delete</button></th>
-                </tr>
-                {% endfor %}
-            </table>
+      <div id="entries">
+        <div class="dataBox">
+          <form id="form" action="editInvItem" method="post">
+	      <input type="hidden" name="employee" value="{{ employee }}">
+              <table>
+                  <tr>
+                      <th>ITEM</th> 
+                  </tr>
+                  <tr>
+                      <th><select id="item" tabindex="1" name="item">
+                              {% for i in invItems %}
+                                <option>{{i}}</option>
+                              {% endfor %}
+                          </select>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th>PRICE</th>
+                      <th>BEG INV</th>
+                  </tr>
+                  <tr>
+                      <th>Php <input id="price" tabindex="-1" value="0" size="13"></th>
+                      <th><input id="beginv" tabindex="-1" name="beginv" value="0" size="17"></th>
+                  </tr>
+                  <tr>
+                    <th>
+                    </th>
+                  </tr>
+              </table>
+          </form>
+        </div>
+      </div>
+     <div style="margin-top: 20px">
+	      <button id="submitEntries">Submit entry</button>
       </div>
   </div>
 </main><!-- /.container -->
@@ -93,5 +106,25 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
   crossorigin="anonymous"></script>
 <script>
+
+  $("#submitEntries").on("click", function(){
+    $("#form").submit()
+  });
+
+  function applyChange(){
+    var curItem = $("#item").prop('selectedIndex')
+    var invPrices = []
+    {% for i in invPrices %}
+      invPrices.push({{i}})
+    {% endfor %}
+    var invBegin = []
+    {% for i in invBegin %}
+      invBegin.push({{i}})
+    {% endfor %}
+    $("#beginv").val(Number(invBegin[curItem]))
+    $("#price").val(invPrices[curItem])
+  };
+  $("#item, #beginv").on("change paste keyup", applyChange);
+  $(document).ready(applyChange)
 </script>
 </html>

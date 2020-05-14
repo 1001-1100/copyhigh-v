@@ -15,6 +15,8 @@ import time
 
 # Create your views here.
 
+print("Hello world!")
+
 def getlogin(request):
     return render(request, "login.html")
 
@@ -41,6 +43,34 @@ def addpage(request):
         data['invBegin'] = [i.inv for i in invItemList.iterator()]
 
         return render(request, "index.html", data)
+    else:
+        return redirect('/login')
+
+def addItempage(request):
+    if(request.session.get('employee')):
+        invItemList = invItem.objects.all()
+        data = {}
+        data['employee'] = request.session.get('employee') 
+        data['currentDate'] = datetime.datetime.now()
+        data['invItems'] = [i.item for i in invItemList.iterator()]
+        data['invPrices'] = [i.price for i in invItemList.iterator()]
+        data['invBegin'] = [i.inv for i in invItemList.iterator()]
+
+        return render(request, "addItem.html", data)
+    else:
+        return redirect('/login')
+
+def editItempage(request):
+    if(request.session.get('employee')):
+        invItemList = invItem.objects.all()
+        data = {}
+        data['employee'] = request.session.get('employee') 
+        data['currentDate'] = datetime.datetime.now()
+        data['invItems'] = [i.item for i in invItemList.iterator()]
+        data['invPrices'] = [i.price for i in invItemList.iterator()]
+        data['invBegin'] = [i.inv for i in invItemList.iterator()]
+
+        return render(request, "editItem.html", data)
     else:
         return redirect('/login')
         
@@ -102,5 +132,21 @@ def addInvEntry(request):
         invItem.objects.filter(item=r.get('item')).update(inv=r.get('endinv'))
 
     print(inventry)
+
+    return redirect('/')
+
+@csrf_exempt
+def addInvItem(request):
+    r = request.POST
+    print(r)
+
+    invitem = invItem(
+        item=r.get('item'),
+        price=r.get('price'),
+        inv=r.get('beginv')
+    )
+    invitem.save()
+
+    print(invitem)
 
     return redirect('/')
